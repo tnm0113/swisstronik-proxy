@@ -77,6 +77,15 @@ async function main() {
     console.log(
         `Response: https://explorer-evm.testnet.swisstronik.com/tx/${upgrade.hash}`
     );
+
+    await hre.run("verify:verify", {
+        address: proxy.target, // address of deployed contract
+        constructorArguments: [
+            swisstronikContract.target,
+            proxyAdmin.target,
+            Uint8Array.from([]),
+        ], // constructor arguments
+    });
 }
 
 main().catch((error) => {
